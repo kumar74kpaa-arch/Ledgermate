@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import dynamic from "next/dynamic";
-
-const ThemeProvider = dynamic(
-  () => import("@/components/theme-provider").then((mod) => mod.ThemeProvider),
-  { ssr: false }
-);
+import { ClientOnlyThemeProvider } from "@/components/client-only-theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,14 +18,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
-        <ThemeProvider
+        <ClientOnlyThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           {children}
-        </ThemeProvider>
+        </ClientOnlyThemeProvider>
       </body>
     </html>
   );
