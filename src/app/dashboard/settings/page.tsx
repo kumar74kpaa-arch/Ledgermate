@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/theme-provider";
 import { Settings, Moon, Sun, Bell, Shield, Webhook } from "lucide-react";
 
 export default function SettingsPage() {
