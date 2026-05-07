@@ -72,18 +72,18 @@ export function detectIntent(message: string): Intent | null {
 export function generateAIResponse(intent: Intent, data: any): string {
   switch (intent) {
     case Intent.GET_TODAY_SALES:
-      return `📊 *Today's Sales Summary*\nTotal Sales: ₹${data.totalSales}\nTotal Orders: ${data.orders || 0}\n\nAnything else you'd like to check?`;
+      return `Today's sales are ₹${data.totalSales} across ${data.orders} invoices.`;
     case Intent.GET_OUTSTANDING:
-      return `💳 *Outstanding Payments*\nTotal Pending: ₹${data.outstanding}\nNo. of Invoices: ${data.invoices || 0}\n\nWould you like a list of top defaulters?`;
+      return `Total outstanding amount is ₹${data.outstanding} from ${data.invoices} pending invoices.`;
     case Intent.GET_CASH_BALANCE:
-      return `💵 *Current Cash Balance*\nTotal Cash in Hand: ₹${data.cash}\n\n_Note: Last updated 5 mins ago._`;
+      return `Current Cash in Hand is ₹${data.cash}.`;
     case Intent.GET_BANK_BALANCE:
-      return `🏦 *Bank Balance Summary*\nAvailable Balance: ₹${data.bank}\n\nChecking individual accounts... Done.`;
+      return `Your total Bank Balance is ₹${data.bank}.`;
     case Intent.GET_LOW_STOCK:
       const items = Array.isArray(data.items) ? data.items.join(", ") : "None";
-      return `📦 *Low Stock Alert!*\nThe following items are below reorder level: ${items}.\n\nShould I create a purchase draft?`;
+      return `⚠️ *Low Stock Alert*: The following items are below reorder level: ${items}.`;
     case Intent.GET_GST_PAYABLE:
-      return `🧾 *GST Status*\nGST Payable: ₹${data.gst}\nFiling Deadline: 20th of next month.`;
+      return `GST payable for the current period is ₹${data.gst}.`;
     default:
       return "🤖 I'm your LedgerMate assistant. I can help you with sales, outstandings, balances, and stock. What can I check for you today?";
   }
