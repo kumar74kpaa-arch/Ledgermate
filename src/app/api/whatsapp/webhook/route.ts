@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { detectIntent } from "@/lib/intents";
+import { detectIntent, generateAIResponse } from "@/lib/ai";
 import { tallyService } from "@/lib/tallyService";
-import { generateAIResponse } from "@/lib/ai";
 import { addMessage, addLog } from "@/lib/mockData";
 import { Intent } from "@/types/intent";
 
