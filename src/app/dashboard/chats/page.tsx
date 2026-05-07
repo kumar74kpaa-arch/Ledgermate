@@ -24,6 +24,12 @@ export default function ChatsPage() {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -98,7 +104,7 @@ export default function ChatsPage() {
                         "flex items-center gap-1 self-end text-[10px]",
                         msg.direction === "incoming" ? "text-muted-foreground" : "text-emerald-100"
                       )}>
-                        {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {isMounted ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "..."}
                         {msg.direction === "outgoing" && <CheckCheck size={12} />}
                       </div>
                     </div>
