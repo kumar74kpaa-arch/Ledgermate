@@ -94,10 +94,65 @@ export default function DashboardPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
           <CardHeader>
-            <CardTitle>Sales Performance</CardTitle>
+            <CardTitle>Sales Performance (Last 7 Days)</CardTitle>
           </CardHeader>
-          <CardContent className="h-[300px] flex items-center justify-center border-t mt-2">
-            <p className="text-muted-foreground italic">Interactive Chart Placeholder (Simulated)</p>
+          <CardContent className="h-[300px] w-full pt-4">
+            <div className="relative h-full w-full">
+              <svg viewBox="0 0 400 200" className="w-full h-full overflow-visible">
+                <defs>
+                  <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                {/* Grid lines */}
+                {[0, 50, 100, 150].map((y) => (
+                  <line 
+                    key={y} 
+                    x1="0" y1={y} x2="400" y2={y} 
+                    stroke="currentColor" 
+                    strokeOpacity="0.1" 
+                    strokeDasharray="4 4" 
+                  />
+                ))}
+                {/* Area under curve */}
+                <path
+                  d="M0 200 L0 150 L50 120 L100 160 L150 100 L200 80 L250 110 L300 60 L350 90 L400 40 L400 200 Z"
+                  fill="url(#chartGradient)"
+                />
+                {/* The line */}
+                <motion.path
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 2, ease: "easeInOut" }}
+                  d="M0 150 L50 120 L100 160 L150 100 L200 80 L250 110 L300 60 L350 90 L400 40"
+                  fill="none"
+                  stroke="hsl(var(--primary))"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                {/* Points */}
+                {[
+                  [0, 150], [50, 120], [100, 160], [150, 100], [200, 80], 
+                  [250, 110], [300, 60], [350, 90], [400, 40]
+                ].map(([x, y], i) => (
+                  <motion.circle
+                    key={i}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: i * 0.1 + 1 }}
+                    cx={x} cy={y} r="4"
+                    fill="hsl(var(--background))"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2"
+                  />
+                ))}
+              </svg>
+              <div className="absolute bottom-0 left-0 right-0 flex justify-between px-2 text-[10px] text-muted-foreground pt-4">
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => <span key={d}>{d}</span>)}
+              </div>
+            </div>
           </CardContent>
         </Card>
         <Card className="col-span-3">
